@@ -428,7 +428,8 @@ class ra_tracking(object): # class not instantiated
     king = 8314
     solar = 8333
     lunar = 8615
-    guide_east = 10526 - solar # -25Hz
+    # guide_east = 10526 - solar # -25Hz
+    guide_east = 10408 - solar # -25Hz -- changed 2022-07-16 to stop tripping limit on inverter processor
     guide_west = 6897 - solar # +25Hz
     guide_flag = 16384 # tell motor controller we are guiding, suppresses ST4
     
@@ -437,6 +438,7 @@ class ra_tracking(object): # class not instantiated
     
     # switch settings
     default_switch = 7 # service mode (unlabeled) or disconnected
+    # change default to compensate for dirty selector switch
     rates = { # by switch setting
         0: service, # (not used by hardware)
         1: service, # (not used by hardware)
@@ -446,6 +448,16 @@ class ra_tracking(object): # class not instantiated
         5: variable,
         6: lunar,
         7: service,
+    }
+    rates = { # by switch setting
+        0: sidereal, # (not used by hardware)
+        1: sidereal, # (not used by hardware)
+        2: sidereal,
+        3: solar,
+        4: king,
+        5: variable,
+        6: lunar,
+        7: sidereal,
     }
     
     # operational constants
